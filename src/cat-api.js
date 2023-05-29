@@ -6,7 +6,7 @@ export function fetchBreeds(){
  return fetch(`${BASE_URL}breeds?api_key=${api_key}`)
     .then(resp => {
         if (!resp.ok){
-            throw new Error (errorParagraph.textContent);
+            throw new Error (resp.statusText);
         }
         return resp.json()
     }).then(data=> {
@@ -17,9 +17,7 @@ export function fetchBreeds(){
     })
 }
 
-fetchBreeds().then(cat => console.log(cat)).catch(error => {console.error(error).finally(() => {
-    errorParagraph.style.display = 'none';
-  });
+fetchBreeds().then(cat => console.log(cat)).catch(error => {console.log(error);
 errorParagraph.textContent = error.message; 
 errorParagraph.style.display = 'block'; });
 
